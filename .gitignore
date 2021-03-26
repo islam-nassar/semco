@@ -145,3 +145,4 @@ results/
 data/
 runs/
 saved_models/
+cifar100/
