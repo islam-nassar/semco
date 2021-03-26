@@ -31,7 +31,7 @@ def generate_pickles(ds_name, data_labels_path, output_path, instances_per_label
         lbs = {elem: cls for elem in choices}
         labelled_data.update(lbs)
 
-    filepath = output_path + f'{ds_name}_labelled_data_{instances_per_label}_seed{seed}.pkl'
+    filepath = os.path.join(output_path , f'{ds_name}_labelled_data_{instances_per_label}_seed{seed}.pkl')
     pickle.dump(labelled_data, Path(filepath).open('wb'))
     print(f'Generated labelled data pickle: {filepath}')
 
@@ -48,12 +48,10 @@ if __name__ == '__main__':
                         help='random seed for the split')
     parser.add_argument('--generate-classes-and-valid', type=bool, default=False,
                         help='if set to true, classes and test pickels will be generated')
+    parser.add_argument('--output-path', type=str, default='../splits',
+                        help='output path where the pickles will be written')
     args, _ = parser.parse_known_args()
 
-    ds_name = args.dataset_name
-    data_labels_path = os.path.join(args.dataset_path, f'{ds_name}/labels/')
-    output_path = '../splits/'
-    instances_per_label = args.instances_per_label
-
-    generate_pickles(ds_name, data_labels_path, output_path, instances_per_label,
+    data_labels_path = os.path.join(args.dataset_path, f'{args.dataset_name}/labels/')
+    generate_pickles(args.dataset_name, data_labels_path, args.output_path, args.instances_per_label,
                      generate_cls_valid=args.generate_classes_and_valid, seed=args.random_seed)
