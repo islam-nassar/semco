@@ -230,10 +230,7 @@ if __name__ == '__main__':
     classes = 'airplane automobile bird dog frog horse ship truck'.split() + \
               ['canine', 'doberman', 'wolf', 'car', 'vehicle', 'aircraft', 'jet',
                'boat']
-
-    classes = ['lion', 'ashcan', 'unicycle', 'Ibizan_hound', 'nematode', 'carousel', 'spider_web', 'white_wolf', 'vase', 'iPod', 'slot', 'tank', 'Newfoundland', 'robin', 'cuirass', 'ant', 'three-toed_sloth', 'garbage_truck', 'golden_retriever', 'consomme', 'scoreboard', 'carton', 'African_hunting_dog', 'oboe', 'barrel', 'malamute', 'snorkel', 'solar_dish', 'hourglass', 'missile', 'tile_roof', 'prayer_rug', 'horizontal_bar', 'cliff', 'black-footed_ferret', 'miniature_poodle', 'miniskirt', 'Tibetan_mastiff', 'rock_beauty', 'street_sign', 'poncho', 'hair_slide', 'clog', 'upright', 'king_crab', 'bookshop', 'coral_reef', 'aircraft_carrier', 'house_finch', 'hotdog', 'cannon', 'dishrag', 'chime', 'crate', 'ladybug', 'triceratops', 'rhinoceros_beetle', 'parallel_bars', 'lipstick', 'file', 'toucan', 'fire_screen', 'green_mamba', 'wok', 'dalmatian', 'beer_bottle', 'Gordon_setter', 'French_bulldog', 'worm_fence', 'boxer', 'frying_pan', 'dome', 'ear', 'Arctic_fox', 'organ', 'combination_lock', 'jellyfish', 'komondor', 'cocktail_shaker', 'trifle', 'pencil_box', 'goose', 'meerkat', 'mixing_bowl', 'electric_guitar', 'Saluki', 'dugong', 'catamaran', 'reel', 'photocopier', 'bolete', 'stage', 'harvestman', 'yawl', 'holster', 'theater_curtain', 'school_bus', 'tobacco_shop', 'Walker_hound', 'orange']
-    # get_labels2wv_dict(classes, '/Users/inas0003/Documents/data/word_vectors/numberbatch-en-19.08.txt')
-    model = pickle.load(Path('/home/inas0003/data/extra/numberbatch-en-19.08_128D.dict.pkl').open('rb'))
+    model = pickle.load(Path('numberbatch-en-19.08_128D.dict.pkl').open('rb'))
     labels2wv, label_mapping = get_labels2wv_dict(classes, model, return_mapping=True)
     clust_index, assign = get_grouping(labels2wv, eps=0.3, metric='cosine', return_mapping=True)
 

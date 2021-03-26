@@ -154,20 +154,3 @@ def get_gpu_memory_map():
     gpu_memory = [int(x) for x in result.strip().split('\n')]
     gpu_memory_map = dict(zip(range(len(gpu_memory)), gpu_memory))
     return gpu_memory_map
-
-
-if __name__ == '__main__':
-    from datasets import dataloaders
-    a = torch.tensor(range(30))
-    a_ = interleave(a, 15)
-    b = torch.randn(448, 3, 224, 224)
-    b = interleave(b, 7)
-    # a__ = de_interleave(a_, 15)
-    # print(a, a_, a__)
-    dataset = datasets.ImageFolder('/home/inas0003/projects/FixMatch-valencebond/data/DomainNet/real/real', transform=transforms.Compose([transforms.Resize((64,64)),transforms.ToTensor()]))
-
-#     dataset = datasets.MNIST('data', download=True, transform=transforms.Compose([transforms.Resize(28),
-#                                                                           transforms.ToTensor()]))
-    mean, std = compute_stats(dataset)
-
-    print(mean,std)
