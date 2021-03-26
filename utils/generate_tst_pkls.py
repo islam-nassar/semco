@@ -37,7 +37,7 @@ def generate_pickles(ds_name, data_labels_path, output_path, instances_per_label
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=' Test pickle gneration')
+    parser = argparse.ArgumentParser(description=' Test pickle generation')
     parser.add_argument('--dataset-path', type=str, default=os.environ.get('SEMCO_DATA_PATH', '/home/inas0003/data'),
                         help='the path to the data folder containing datasets')
     parser.add_argument('--dataset-name', type=str, default=None,
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
     ds_name = args.dataset_name
     data_labels_path = os.path.join(args.dataset_path, f'{ds_name}/labels/')
-    output_path = 'splits/'
+    output_path = '../splits/'
     instances_per_label = args.instances_per_label
 
     generate_pickles(ds_name, data_labels_path, output_path, instances_per_label,

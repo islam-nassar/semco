@@ -44,3 +44,4 @@ if __name__ == '__main__':
 
     model = SemCo(args, dataset_meta, device, L)
     model.train(labelled_data=labelled_data, valid_data=valid_data, save_best_model=True)
+    # preds = model.predict()

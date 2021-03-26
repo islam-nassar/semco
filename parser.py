@@ -6,13 +6,13 @@ def parse_args():
     # Model configuration
     parser.add_argument('--dataset-path', type=str, default=os.environ.get('SEMCO_DATA_PATH', '/home/inas0003/data'),
                         help='the path to the data folder containing all datasets')
-    word_vec_path = os.path.join(os.environ.get('SEMCO_WV_PATH', '/home/inas0003/data'),
-                                 'numberbatch-en-19.08_128D.dict.pkl')
-    parser.add_argument('--word-vec-path', type=str, default=word_vec_path,
+    parser.add_argument('--word-vec-path', type=str,
+                        default=os.environ.get('SEMCO_WV_PATH',
+                                               '/home/inas0003/data/numberbatch-en-19.08_128D.dict.pkl'),
                         help='Word vectors (Semantic Embeddings) dict path')
-    parser.add_argument('--im-size', type=int, default=256,
+    parser.add_argument('--im-size', type=int, default=32,
                         help='default image size to which all images will be resized')
-    parser.add_argument('--cropsize', type=int, default=224,
+    parser.add_argument('--cropsize', type=int, default=32,
                         help='default cropsize to which all images will be cropped -radomly for train data and centrally for test/valid data')
     parser.add_argument('--lam-u', type=float, default=1.,
                         help='coefficient of unlabeled loss')
@@ -72,18 +72,18 @@ def parse_args():
     parser.add_argument('--momentum', type=float, default=0.9,
                         help='momentum for optimizer')
     parser.add_argument('--seed', type=int, default=123,
-                        help='seed for random behaviors, no seed if negtive')
+                        help='seed for random behaviors, no seed if negative')
 
 
 
     ##### Launcher config #######
-    parser.add_argument('--dataset-name', type=str, default=None,
+    parser.add_argument('--dataset-name', type=str, default='cifar100',
                         help='Name of dataset (e.g. cifar100)')
-    parser.add_argument('--train-split-pickle', type=str, default=None,
+    parser.add_argument('--train-split-pickle', type=str, default='splits/cifar100_labelled_data_25_seed123.pkl',
                         help='path to pickle file with training split (generate_tst_pkls output)')
-    parser.add_argument('--valid-split-pickle', type=str, default=None,
+    parser.add_argument('--valid-split-pickle', type=str, default='splits/cifar100_valid_data.pkl',
                         help='path to pickle file with validation/test split (generate_tst_pkls output)')
-    parser.add_argument('--classes-pickle', type=str, default=None,
+    parser.add_argument('--classes-pickle', type=str, default='splits/cifar100_classes.pkl',
                         help='path to pickle file with classes (generate_tst_pkls output)')
 
     # parser.add_argument(
