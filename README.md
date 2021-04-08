@@ -11,11 +11,17 @@ cd apex
 python setup.py install --cpp_ext --cuda_ext
 
 ```
-**Note**: Installing apex is optional, if you don't want to implement amp, you can simply pass `--no_amp` command line argument. 
+**Note**: Installing apex is optional, if you don't want to implement amp, you can simply pass `--no_amp` command line argument to the launcher. 
 
 
 ## Dataset
-download cifar-10 dataset: 
+We use a fixed format for datasets to enable running the code on any dataset of choice without the need to edit the dataloaders. All the datasets we use follow the below folder structure (illustrated for cifar100 datasets:
+.
++-- cifar100
+|   +-- test
+|   +-- train
+|   +-- labels
+
 ```
     $ mkdir -p dataset && cd data
     $ wget -c http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
