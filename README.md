@@ -15,23 +15,23 @@ python setup.py install --cpp_ext --cuda_ext
 
 
 ## Dataset
-We use a fixed format for datasets to enable running the code on any dataset of choice without the need to edit the dataloaders. All the datasets we use follow the below folder structure (illustrated for cifar100 datasets:
+We use a fixed format for datasets to enable running the code on any dataset of choice without the need to edit the dataloaders. The datasets directory follow the below structure:
 ```
 datasets
 └───cifar100
-│   └───train
-│       │   file111.txt
-│       │   file112.txt
-│       │   ...
-│   └───test
-│       │   file111.txt
-│       │   file112.txt
-│       │   ...
-│   └───labels
-│       │   file111.txt
-│       │   file112.txt
-│       │   ...
-│   
+   └───train
+       │   file111.txt
+       │   file112.txt
+       │   ...
+   └───test
+       │   file111.txt
+       │   file112.txt
+       │   ...
+   └───labels
+       │   file111.txt
+       │   file112.txt
+       │   ...
+   
 └───cifar10
 │   └───train
 │       │   file111.txt
