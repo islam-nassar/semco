@@ -1,7 +1,7 @@
 # SemCo
 The official implementation of the paper [All Labels Are Not Created Equal: Enhancing Semi-supervision via Label Grouping and Co-training](https://arxiv.org/abs/2104.05248)
 
-<img align="center" src="https://github.com/islam-nassar/semco/blob/main/conceptual.png/" alt="SemCo Conceptual Diagram" width="600">
+<img class="center" src="https://github.com/islam-nassar/semco/blob/main/conceptual.png/" alt="SemCo Conceptual Diagram" width="600">
 
 ## Install Dependencies
 
