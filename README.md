@@ -1,5 +1,7 @@
 # SemCo
-The official implementation of the paper All Labels Are Not Created Equal: Enhancing Semi-supervision via Label Grouping and Co-training
+The official implementation of the paper [All Labels Are Not Created Equal: Enhancing Semi-supervision via Label Grouping and Co-training](https://arxiv.org/abs/2104.05248)
+
+![SemCo Conceptual Diagram](https://github.com/islam-nassar/semco/blob/main/conceptual.png/)
 
 ## Install Dependencies
 
@@ -31,7 +33,7 @@ datasets
        │   labels_train.feather
        │   labels_test.feather
 ```
-An example of the above directory structure for cifar100 can be found here. 
+An example of the above directory structure for cifar100 can be found [here](https://drive.google.com/file/d/18mEoD-cAnGar5gMrCiJgh-oWMjC8D4Bk/view?usp=sharing). 
 
 To preprocess a generic dataset into the above format, you can refer to `create_dataset_structure.py` for several examples. 
 
@@ -40,7 +42,7 @@ To configure the datasets directory path, you can either set the environment var
 ## Label Semantics Embeddings
 SemCo expects a prior representation of all class labels via a semantic embedding for each class name. In our experiments, we use embeddings obtained from ConceptNet knowledge graph which contains a total of ~550K term embeddings. SemCo uses a matching criteria to find the best embedding for each of the class labels. Alternatively, you can use class attributes as the prior (like we did for CUB200 dataset), so you can build your own semantic dictionary.
 
-To run experiments, please download the semantic embedding file here and set the path to the downloaded file either via `SEMCO_WV_PATH` environment variable or `--word-vec-path` command line argument. (e.g. `export SEMCO_WV_PATH=/home/inas0003/data/numberbatch-en-19.08_128D.dict.pkl`
+To run experiments, please download the semantic embedding file [here](https://drive.google.com/file/d/1l_cIt0CFlhmd41v0DzRzVbAgC4HK88zy/view?usp=sharing) and set the path to the downloaded file either via `SEMCO_WV_PATH` environment variable or `--word-vec-path` command line argument. (e.g. `export SEMCO_WV_PATH=/home/inas0003/data/numberbatch-en-19.08_128D.dict.pkl`
 
 ## Defining the Splits
 For each of the experiments, you will need to specify to the launcher 4 command line arguments:
