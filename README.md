@@ -38,7 +38,7 @@ datasets
 ```
 An example of the above directory structure for cifar100 can be found [here](https://drive.google.com/file/d/18mEoD-cAnGar5gMrCiJgh-oWMjC8D4Bk/view?usp=sharing). 
 
-To preprocess a generic dataset into the above format, you can refer to `create_dataset_structure.py` for several examples. 
+To preprocess a generic dataset into the above format, you can refer to `utils/utils.py` for several examples.
 
 To configure the datasets directory path, you can either set the environment variable `SEMCO_DATA_PATH` or pass a command line argument `--dataset-path` to the launcher. (e.g. `export SEMCO_DATA_PATH=/home/data`). Note that this path references the parent datasets directory which contains the different sub directories for the individual datasets (e.g. cifar100, mini-imagenet, etc.)
 
