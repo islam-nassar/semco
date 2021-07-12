@@ -9,6 +9,11 @@ import subprocess
 
 # from torch.utils.tensorboard import SummaryWriter
 from tensorboardX import SummaryWriter
+import re
+import shutil
+import pandas as pd
+from pathlib import Path
+from sklearn.model_selection import train_test_split
 
 
 def interleave(x, bt):   # 1 * 64 (weakly aug labelled)  +   3 * 64 (weakly aug unlab) + 3 * 64 (strongly aug unlab)
@@ -154,3 +159,99 @@ def get_gpu_memory_map():
     gpu_memory = [int(x) for x in result.strip().split('\n')]
     gpu_memory_map = dict(zip(range(len(gpu_memory)), gpu_memory))
     return gpu_memory_map
+
+def create_dataset_structure(train_df, test_df, dataset_name, path='/home/user/data/'):
+    """
+    Receives two dataframes for train and test images and build the dataset directory structure as per SemCo standard
+    by copying all the files into their proper path (see below schematic for directory structure).
+
+    train_df and test_df must contain two columns: `id` containing absolute path of the raw image file ,
+    `class` containing class label.
+    dataset_name: the name of parent directory of the dataset (see below)
+    path: the path where the dataset directory structure will be created.
+
+    Directory structure:
+
+    └<dataset_name>
+       └───train
+           │   <image1>
+           │   <image2>
+           │   ...
+       └───test
+           │   <image1-test>
+           │   <image2-test>
+           │   ...
+       └───labels
+           │   labels_train.feather
+           │   labels_test.feather
+    """
+    assert (os.path.exists(path)), f'{path} does not exist.'
+    # create directory structure and all intermediate directories
+    os.makedirs(os.path.join(path, dataset_name, 'train'))
+    os.makedirs(os.path.join(path, dataset_name, 'test'))
+    os.makedirs(os.path.join(path, dataset_name, 'labels'))
+
+    data = {'train': train_df.copy(), 'test': test_df.copy()}
+    for split in ['train', 'test']:
+        # copy files in respective folders
+        df = data[split]
+        for file in df.id.values:
+            name = file.split('/')[-1]
+            assert (re.match(r"\w*\.(?:jpg|png|jpeg)", name)), 'jpg, png or jpeg file expected'
+            shutil.copyfile(file, os.path.join(path, dataset_name, split, name))
+
+        # prepare label.feather dataframe
+        df.id = df.id.apply(lambda x: x.split('/')[-1])
+        df.reset_index(drop=True, inplace=True)
+        df.to_feather(os.path.join(path, dataset_name, f'labels/labels_{split}.feather'))
+
+
+def preprocess_stanford40(path='Stanford40'):
+    """
+    To preprocess Stanford40 dataset into train_df and test_df (preprocessor for create_dataset_structure)
+    Assume folder Stanford40 has two subdirectories: ImageSplits and JPEGImages
+    source:  http://vision.stanford.edu/Datasets/Stanford40.zip
+    """
+    # generating a dataframe with image id versus class
+    filenames = os.listdir(os.path.join(path, 'ImageSplits/'))
+    train = {'id': [], 'class': []}
+    test = {'id': [], 'class': []}
+    for file in filenames:
+        if file in ['test.txt', 'train.txt', 'actions.txt', '.ipynb_checkpoints']:
+            continue
+        class_name = file.replace('_train.txt', '').replace('_test.txt', '')
+        images_path = Path(os.path.join(path, 'ImageSplits', file))
+        if '.txt' in str(images_path):
+            image_ids = [os.path.abspath(os.path.join(path, 'JPEGImages/', elem.strip())) for elem in
+                         (images_path.open('r')).readlines()]
+            test_train = file.split('_')[-1]
+            if test_train == 'train.txt':
+                train['class'].extend([class_name] * len(image_ids))
+                train['id'].extend(image_ids)
+            elif test_train == 'test.txt':
+                test['class'].extend([class_name] * len(image_ids))
+                test['id'].extend(image_ids)
+    train_df = pd.DataFrame(train)
+    test_df = pd.DataFrame(test)
+    return train_df, test_df
+
+
+def preprocess_caltech256(path='256_ObjectCategories'):
+    """
+    To preprocess Caltech256 dataset into train_df and test_df (preprocessor for build_lwll_data_structure)
+    source : http://www.vision.caltech.edu/Image_Datasets/Caltech256/
+    """
+    folders = os.listdir(path)
+    data = {'id': [], 'class': []}
+    for folder in folders:
+        class_name = re.findall(r'(?:\d{3}\.)(.+)', folder)[0].replace('-101', '')
+        class_path = os.path.join(path, folder)
+        for file in os.listdir(class_path):
+            if not any([ext in file for ext in ['jpg', 'png', 'jpeg']]):
+                continue
+            data['class'].append(class_name)
+            data['id'].append(os.path.abspath(os.path.join(class_path, file)))
+
+    df = pd.DataFrame(data)
+    train_df, test_df = train_test_split(df, test_size=0.2, random_state=123)
+    return train_df, test_df
