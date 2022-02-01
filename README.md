@@ -9,7 +9,8 @@ The official pytorch implementation of the paper [All Labels Are Not Created Equ
 
 If you find our work useful, please consider giving a star and citing our work using below:
 
-```@inproceedings{nassar2021all,
+```
+@inproceedings{nassar2021all,
   title={All Labels Are Not Created Equal: Enhancing Semi-supervision via Label Grouping and Co-training},
   author={Nassar, Islam and Herath, Samitha and Abbasnejad, Ehsan and Buntine, Wray and Haffari, Gholamreza},
   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
