@@ -5,6 +5,18 @@ The official pytorch implementation of the paper [All Labels Are Not Created Equ
   <img class="center" src="https://github.com/islam-nassar/semco/blob/main/conceptual.png/" alt="SemCo Conceptual Diagram" width="500">
 </p>
 
+# Citation
+
+If you find our work useful, please consider giving a star and citing our work using below:
+
+```@inproceedings{nassar2021all,
+  title={All Labels Are Not Created Equal: Enhancing Semi-supervision via Label Grouping and Co-training},
+  author={Nassar, Islam and Herath, Samitha and Abbasnejad, Ehsan and Buntine, Wray and Haffari, Gholamreza},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={7241--7250},
+  year={2021}
+}
+```
 
 ## Install Dependencies
 
