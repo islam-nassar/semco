@@ -5,7 +5,7 @@ The official pytorch implementation of the paper [All Labels Are Not Created Equ
   <img class="center" src="https://github.com/islam-nassar/semco/blob/main/conceptual.png/" alt="SemCo Conceptual Diagram" width="500">
 </p>
 
-# Citation
+## Citation
 
 If you find our work useful, please consider giving a star and citing our work using below:
 
