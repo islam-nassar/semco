@@ -238,7 +238,7 @@ def preprocess_stanford40(path='Stanford40'):
 
 def preprocess_caltech256(path='256_ObjectCategories'):
     """
-    To preprocess Caltech256 dataset into train_df and test_df (preprocessor for build_lwll_data_structure)
+    To preprocess Caltech256 dataset into train_df and test_df (preprocessor for create_dataset_structure)
     source : http://www.vision.caltech.edu/Image_Datasets/Caltech256/
     """
     folders = os.listdir(path)
